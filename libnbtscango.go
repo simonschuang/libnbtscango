@@ -3,7 +3,8 @@ package libnbtscango
 import (
 	"os"
 	"fmt"
-	"byteexec"
+	"log"
+	"github.com/getlantern/byteexec"
 )
 /* example result
 # nbtscan -v 192.168.30.10
@@ -23,9 +24,9 @@ Adapter address: 00-50-56-bd-57-4e
 ----------------------------------------
 */
 
-type struct Nbt {
-	host string
-	group string
+type Nbt struct {
+	Host string
+	Group string
 }
 
 var nbtscanBin []byte
@@ -39,8 +40,8 @@ func init() {
 	}
 }
 
-func scanByIP(ip string) (nbt Nbt, err error) {
-	be, err := byteexec.New(nbtscanBin)
+func ScanByIP(ip string) (nbt Nbt, err error) {
+	be, err := byteexec.New(nbtscanBin, "nbtscan")
 	if err != nil {
 		log.Fatalf("Uh oh: %s", err)
 	}
@@ -51,6 +52,6 @@ func scanByIP(ip string) (nbt Nbt, err error) {
 	if err != nil {
 		log.Fatalf("%s", err)
 	}
-	nbt = Nbt{host: "abc", group: "group"}
+	nbt = Nbt{Host: "abc", Group: "group"}
 	return
 }
